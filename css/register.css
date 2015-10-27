@@ -1,0 +1,18 @@
+ /*
+ COLORS
+ Orange: #F3822C;
+
+ */
+
+body{
+	background-color: #F3822C;
+	color: #f8f8f8;
+}
+
+form{
+	padding:40px;
+}
+
+.vertical-align{
+	margin-top: 30%;
+}

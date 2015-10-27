@@ -1,0 +1,49 @@
+.dialogBox {
+	position: absolute;
+	z-index: 999;
+}
+
+.rubro-selected{
+	padding: 8px;
+	border-radius: 8px;
+	text-align: center;
+	font-weight: bold;
+	background-color: orange;
+	margin-right: 8px;
+	cursor: pointer;
+	float:left;
+}
+
+.rubro-selected:hover{
+	background-color: red;
+}
+
+div.rubros {
+	padding-top: 16px;
+}
+
+.logo{
+	background-color: #c3c3c3;
+	padding:8px;
+	width: 116px;
+	height:116px;
+}
+
+.photo{
+	background-color: #c3c3c3;
+	padding:8px;
+	width: 300px;
+	height:200px;
+}
+
+.navbar{
+	background: #f3f3f3 url(../../../img/fondo_web_02.png) repeat 0 0;
+}
+
+.sidebar-nav{
+	background: #f3f3f3 url(../../../img/fondo_web_02.png) repeat 0 -60px;
+}
+
+input[type="file"]{
+	display:inline;
+}

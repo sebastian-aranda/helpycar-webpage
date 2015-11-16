@@ -15,12 +15,12 @@ $password = $_POST["password"];
 
 
 
-if (!validateUser($email, $password))
+if (!validateCliente($email, $password))
 	$html = file_get_contents("login_error.html");
 
 else{
 	$html = file_get_contents("user/index.html");
-	$user = getUser($_POST["email"]);
+	$user = getCliente($_POST["email"]);
 
 	session_start();
 	$_SESSION["username"] = $user[0]->nombre;

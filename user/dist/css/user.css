@@ -47,3 +47,7 @@ div.rubros {
 input[type="file"]{
 	display:inline;
 }
+
+.new-offer{
+	display:none;
+}

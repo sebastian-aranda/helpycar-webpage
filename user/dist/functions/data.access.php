@@ -1,12 +1,12 @@
 <?php
 
-function getUser($email){
+function getCliente($email){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE email = $email";
+	$sql = "SELECT * FROM clientes WHERE email = '$email'";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -14,25 +14,25 @@ function getUser($email){
 	return $result;
 }
 
-function setUser($name, $email, $password){
+function setCliente($name, $email, $password){
 	global $c_host,$c_user,$c_pass,$c_db;	
 
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "INSERT INTO usuarios(nombre, email, password) VALUES ('$name', '$email', '$password');";
+	$sql = "INSERT INTO clientes(nombre, email, password) VALUES ('$name', '$email', '$password');";
 					   
 	$database->setquery($sql);
 	$database->query();	
 }
 
-function validateUser($email, $password){
+function validateCliente($email, $password){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE email = $email and password = $password";
+	$sql = "SELECT * FROM clientes WHERE email = '$email' and password = '$password'";
 
 	$database->setquery($sql);
 	$database->query();	

@@ -1,12 +1,12 @@
 <?php
 
-function getUser($email){
+function getCliente($email){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE email = '$email'";
+	$sql = "SELECT * FROM clientes WHERE email = '$email'";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -14,13 +14,13 @@ function getUser($email){
 	return $result;
 }
 
-function getUserById($id){
+function getClienteById($id){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE id = $id";
+	$sql = "SELECT * FROM clientes WHERE id = $id";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -28,25 +28,25 @@ function getUserById($id){
 	return $result;
 }
 
-function setUser($name, $email, $password){
+function setCliente($name, $email, $password){
 	global $c_host,$c_user,$c_pass,$c_db;	
 
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "INSERT INTO usuarios(nombre, email, password) VALUES ('$name', '$email', '$password');";
+	$sql = "INSERT INTO clientes(nombre, email, password) VALUES ('$name', '$email', '$password');";
 					   
 	$database->setquery($sql);
 	$database->query();	
 }
 
-function validateUser($email, $password){
+function validateCliente($email, $password){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE email = '$email' and password = '$password'";
+	$sql = "SELECT * FROM clientes WHERE email = '$email' and password = '$password'";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -60,7 +60,7 @@ function getLocal($id){
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM local WHERE id = $id";
+	$sql = "SELECT * FROM locales WHERE id = $id";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -68,13 +68,27 @@ function getLocal($id){
 	return $result;
 }
 
-function getLocales($user){
+function getLocales($cliente){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM local WHERE usuario = $user";
+	$sql = "SELECT * FROM locales WHERE cliente = $cliente";
+
+	$database->setquery($sql);
+	$database->query();	
+	$result = $database->listObjects();
+	return $result;
+}
+
+function getOfertas($id){
+	global $c_host,$c_user,$c_pass,$c_db;
+	
+	$database = new database($c_host,$c_user,$c_pass);
+	$database->setDb($c_db);
+	
+	$sql = "SELECT * FROM ofertas WHERE id_local = $id";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -108,14 +122,14 @@ function updateGlobal($global, $new_value){
 	$database->query();	
 }
 
-function setLocal($nombre, $direccion, $comuna, $telefono, $horario, $email, $logo, $photo, $descripcion, $usuario){
+function setLocal($nombre, $direccion, $comuna, $telefono, $horario, $email, $logo, $photo, $descripcion, $cliente){
 	global $c_host,$c_user,$c_pass,$c_db;	
 
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "INSERT INTO local(nombre, direccion, comuna, telefono, horario, mail, ".($logo != null ? "logo, " : "").($photo != null ? "photo, " : "")."descripcion, usuario) 
-		VALUES ('$nombre', '$direccion', $comuna, '$telefono', '$horario', '$email', ".($logo != null ? "'$logo', " : "").($photo != null ? "'$photo', " : "")."'$descripcion', $usuario);";
+	$sql = "INSERT INTO locales(nombre, direccion, comuna, telefono, horario, mail, ".($logo != null ? "logo, " : "").($photo != null ? "photo, " : "")."descripcion, cliente) 
+		VALUES ('$nombre', '$direccion', $comuna, '$telefono', '$horario', '$email', ".($logo != null ? "'$logo', " : "").($photo != null ? "'$photo', " : "")."'$descripcion', $cliente);";
 					   
 	$database->setquery($sql);
 	$database->query();	
@@ -129,7 +143,7 @@ function updateLocal($id, $nombre, $telefono, $email, $logo, $photo, $horario, $
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "UPDATE local SET nombre = '$nombre', telefono = '$telefono', horario = '$horario', mail = '$email', ".($logo != null ? "logo = '$logo', " : "").($photo != null ? "photo = '$photo', " : "")."descripcion = '$descripcion' WHERE id = $id";
+	$sql = "UPDATE locales SET nombre = '$nombre', telefono = '$telefono', horario = '$horario', mail = '$email', ".($logo != null ? "logo = '$logo', " : "").($photo != null ? "photo = '$photo', " : "")."descripcion = '$descripcion' WHERE id = $id";
 					   
 	$database->setquery($sql);
 	$database->query();	
@@ -141,18 +155,15 @@ function deleteLocal($id){
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "DELETE FROM local WHERE id = $id;";
+	$sql = "DELETE FROM locales WHERE id = $id;";
 	$sql2 = "DELETE FROM rubros_locales WHERE id_local = $id;";
 	$sql3 = "DELETE FROM calificaciones WHERE id_local = $id;";
-	$sql4 = "INSERT INTO version(comentario) VALUES ('Local $id eliminado');";
 					   
 	$database->setquery($sql);
 	$database->query();
 	$database->setquery($sql2);
 	$database->query();
 	$database->setquery($sql3);
-	$database->query();
-	$database->setquery($sql4);
 	$database->query();
 }
 
@@ -231,20 +242,6 @@ function getComunas(){
 	$database->setDb($c_db);
 	
 	$sql = "SELECT * FROM comunas";
-
-	$database->setquery($sql);
-	$database->query();	
-	$result = $database->listObjects();
-	return $result;
-}
-
-function getGCMRegs(){
-	global $c_host,$c_user,$c_pass,$c_db;
-	
-	$database = new database($c_host,$c_user,$c_pass);
-	$database->setDb($c_db);
-	
-	$sql = "SELECT * FROM gcm_regs";
 
 	$database->setquery($sql);
 	$database->query();	

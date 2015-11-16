@@ -61,6 +61,17 @@ else{
     $html = str_replace("{COMUNAS}", $html_comunas, $html);
     $html = str_replace("{COMUNA}", $local->comuna, $html);
 
+    if ($local->activo == 0){
+      $html = str_replace("{DIRECCION_EDITABLE}", "", $html);
+      $html = str_replace("{COMUNA_EDITABLE}", "", $html);
+      $html = str_replace("{DISPLAY_ADDR_ALERT}", "none", $html);
+    }
+    else{
+      $html = str_replace("{DIRECCION_EDITABLE}", "readonly", $html);
+      $html = str_replace("{COMUNA_EDITABLE}", "disabled", $html);
+      $html = str_replace("{DISPLAY_ADDR_ALERT}", "block", $html);
+    }
+
     $html = str_replace("{DIRECCION}", $local->direccion, $html);
 
     $html_horarios = "";

@@ -1,12 +1,12 @@
 <?php
 
-function getUser($email){
+function getCliente($email){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE email = '$email'";
+	$sql = "SELECT * FROM clientes WHERE email = '$email'";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -14,13 +14,13 @@ function getUser($email){
 	return $result;
 }
 
-function getCliente($id){
+function getClienteById($id){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM usuarios WHERE id = $id";
+	$sql = "SELECT * FROM clientes WHERE id = $id";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -28,13 +28,13 @@ function getCliente($id){
 	return $result;
 }
 
-function getAdmin($id){
+function getAdmin($user){
 	global $c_host,$c_user,$c_pass,$c_db;
 	
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM admin WHERE id_usuario = $id";
+	$sql = "SELECT * FROM administradores WHERE user = '$user'";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -48,7 +48,7 @@ function getLocal($id){
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM local WHERE id = $id";
+	$sql = "SELECT * FROM locales WHERE id = $id";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -76,7 +76,7 @@ function validateLocal($id, $nombre, $direccion, $comuna, $telefono, $email, $ho
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "UPDATE local SET nombre = '$nombre', localizacion = '$location', direccion = '$direccion', comuna = '$comuna', telefono = '$telefono', horario = '$horario', mail = '$email', logo = '$logo', photo = '$photo', descripcion = '$descripcion', activo = 1 WHERE id = $id;";
+	$sql = "UPDATE locales SET nombre = '$nombre', localizacion = '$location', direccion = '$direccion', comuna = '$comuna', telefono = '$telefono', horario = '$horario', mail = '$email', logo = '$logo', photo = '$photo', descripcion = '$descripcion', activo = 1 WHERE id = $id;";
 	
 	$database->setquery($sql);
 	$database->query();
@@ -88,7 +88,7 @@ function getLocales($activo){
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM local WHERE activo = $activo";
+	$sql = "SELECT * FROM locales WHERE activo = $activo";
 
 	$database->setquery($sql);
 	$database->query();	
@@ -158,7 +158,7 @@ function getVersiones(){
 	$database = new database($c_host,$c_user,$c_pass);
 	$database->setDb($c_db);
 	
-	$sql = "SELECT * FROM version";
+	$sql = "SELECT * FROM versiones";
 
 	$database->setquery($sql);
 	$database->query();	

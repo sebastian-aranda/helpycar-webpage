@@ -29,10 +29,10 @@
 
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    
     <!-- My CSS -->
     <link href="../dist/css/user.css" rel="stylesheet">
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -56,7 +56,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <p class="navbar-brand">Bienvenido {USERNAME}</p>
-                <input id="premium" type="hidden" value="{PREMIUM}">
             </div>
             <!-- /.navbar-header -->
 
@@ -89,11 +88,14 @@
                         <li>
                             <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Empresa</a>
                         </li>
+                        <li class="{SIGN_SHOP_PERMISSION}">
+                            <a href="{SIGN_SHOP_LINK}"><i class="fa fa-dashboard fa-fw"></i> Ingresar Local</a>
+                        </li>
                         <li>
-                            <a href="sign-shop.php"><i class="fa fa-dashboard fa-fw"></i> Ingresar Local</a>
+                            <a href="add-offer.php"><i class="fa fa-dashboard fa-fw"></i> Agregar Oferta</a>
                         </li>
                         <li class="disabled">
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Estadísticas</a>
+                            <a href="javascript: void(0)"><i class="fa fa-dashboard fa-fw"></i> Estadísticas</a>
                         </li>
                     </ul>
                 </div>
@@ -105,144 +107,15 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Ofertas</h1>
+                    <h1 class="page-header">Editar Ofertas por Local</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal" action="./add-offer_action.php" enctype="multipart/form-data" onsubmit="return validateForm()" method="post">
-                      <input type="hidden" id="id" name="id" value="{ID}">
-
-                      <div class="form-group">
-                        <label for="nombre" class="col-sm-2 control-label">Nombre Local</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="nombre" name="nombre" value="{NOMBRE}">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="rubro" class="col-sm-2 control-label">Rubro(s)</label>
-                        <div class="col-sm-5">
-                            <select id="rubro" name="rubro" class="form-control">
-                              <option value="0">Seleccione un rubro...</option>
-                              {RUBROS}
-                            </select>
-                        </div>
-                        <div class="col-sm-5">
-                            <button id="agregar-rubro" class="btn btn-primary" type="button">Agregar Rubro</button>
-                        </div>
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <span id="rubros-selected-old">{RUBROS_SELECTED_OLD}</span>
-                            <span id="rubros-selected"></span>
-                        </div>
-                        <div id="rubros-deleted" style="display:none;"></div>
-                        <input name="qRubros" id="qRubros" type="hidden" value="0">                    
-                      </div>
-
-                      <div class="form-group">
-                        <label for="direccion" class="col-sm-2 control-label">Dirección</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="direccion" name="direccion" value="{DIRECCION}" readonly>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="comuna" class="col-sm-2 control-label">Comuna</label>
-                        <div class="col-sm-10">
-                            <select id="comuna" name="comuna" class="form-control" disabled>
-                              <option value="0">Seleccione una comuna...</option>
-                              {COMUNAS}
-                            </select>
-                            <div id="addressAlert" style="color:red;display:none;">Para poder cambiar datos de dirección, favor enviarnos una solicitud formal a nuestro mail de contacto</div>
-                        </div>                     
-                      </div>
-
-                      <div class="form-group">
-                          <label for="telefono1" class="col-sm-2 control-label">Teléfono</label>
-                          <div class="col-sm-10">
-                            +56
-                            <input type="tel" maxlength="1" class="" id="telefono1" name="telefono1" style="width:40px;" value="{TELEFONO1}">
-                            -
-                            <input type="tel" maxlength="8" class="" id="telefono2" name="telefono2" style="width:80px;" value="{TELEFONO2}">
-                            Ej: +562 12345678
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Correo Electrónico</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="email" name="email" value="{EMAIL}">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="horario" class="col-sm-2 control-label">Horarios</label>
-                        <div class="col-sm-10">
-                            <input type="checkbox" id="monday" name="monday" value="Lunes">
-                            <label for="monday"> Lunes</label>
-
-                            <input type="checkbox" id="tuesday" name="tuesday" value="Martes">
-                            <label for="tuesday"> Martes</label>
-
-                            <input type="checkbox" id="wednesday" name="wednesday" value="Miercoles">
-                            <label for="wednesday"> Miércoles</label>
-
-                            <input type="checkbox" id="thursday" name="thursday" value="Jueves">
-                            <label for="thursday"> Jueves</label>
-
-                            <input type="checkbox" id="friday" name="friday" value="Viernes">
-                            <label for="friday"> Viernes</label>
-
-                            <input type="checkbox" id="saturday" name="saturday" value="Sabado">
-                            <label for="saturday"> Sábado</label>
-                        </div>
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <select name="time-start" id="time-start">
-                                <option value="-1">-</option>
-                                {HORARIOS}
-                            </select>
-                             - 
-                            <select name="time-end" id="time-end">
-                                <option value="-1">-</option>
-                                {HORARIOS}
-                            </select>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="descripcion" class="col-sm-2 control-label">Descripción</label>
-                        <div class="col-sm-10">
-                          <textarea onKeyUp="contadorCaracteres({NUM_CARACTER})" onKeyDown="contadorCaracteres({NUM_CARACTER})" maxlength="{NUM_CARACTER}" class="form-control" rows="3" id="descripcion" name="descripcion">{DESCRIPCION}</textarea>
-                          <p>Carácteres restantes: <span id="num_caracter">{NUM_CARACTER}</span></p>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                          <label for="logo" class="col-sm-2 control-label">Cargar Logo</label>
-                          <div class="col-sm-10">
-                            <input type="hidden" id="logo_ok" value="1">
-                            <input type="hidden" id="logo_error">
-                              {LOGO_PERMISSION}
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                          <label for="logo" class="col-sm-2 control-label">Cargar Foto de Local</label>
-                          <div class="col-sm-10">
-                            <input type="hidden" id="photo_ok" value="1">
-                            <input type="hidden" id="photo_error">
-                              {PHOTO_PERMISSION}
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                          <button type="submit" class="btn btn-default">Actualizar Local</button>
-                        </div>
-                      </div>
-                    </form>
+                    {LOCALES}
                 </div>
             </div>
             <!-- /.row -->
@@ -263,31 +136,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-    <script src="../js/update-shop.js"></script>
-
-    <script>
-        $("#comuna").val("{COMUNA}");
-
-        $('#monday').prop('checked', {MONDAY});
-        $('#tuesday').prop('checked', {TUESDAY});
-        $('#wednesday').prop('checked', {WEDNESDAY});
-        $('#thursday').prop('checked', {THURSDAY});
-        $('#friday').prop('checked', {FRIDAY});
-        $('#saturday').prop('checked', {SATURDAY});
-
-        $("#time-start").val("{TIME1}");
-        $("#time-end").val("{TIME2}");
-
-        $("select[name='comuna'], #direccion").on("mouseover", function(){
-            $("#addressAlert").slideDown(500);
-        });
-
-        $("select[name='comuna'], #direccion").on("mouseout", function(){
-            $("#addressAlert").slideUp(500);
-        });
-
-    </script>
-
+    <script src="../js/add-offer.js"></script>
 </body>
 
 </html>

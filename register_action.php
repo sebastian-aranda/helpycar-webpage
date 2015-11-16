@@ -25,9 +25,9 @@ else
 	$password = "";
 
 
-$user = getUser($email);
+$user = getCliente($email);
 if (!$user)
-	setUser($name, $email, $password);
+	setCliente($name, $email, $password);
 else
 	echo "<script>window.location.href = 'register_error.html'</script>";
 

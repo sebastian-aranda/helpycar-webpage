@@ -20,14 +20,18 @@ if (isset($_GET["dispositivo"]) && isset($_GET["id_local"]) && isset($_GET["nota
 				.htmlspecialchars($_GET["id_local"]).", "
 				.htmlspecialchars($_GET["nota"]).");");
 }
-else if (isset($_GET["dispositivo"]) && isset($_GET["id_local"]) && isset($_GET["nota"]) && isset($_GET["update"])){
+else if (isset($_GET["dispositivo"]) && isset($_GET["id_local"]) && isset($_GET["nota"]) && isset($_GET["update"]))
 	$result = mysql_query("UPDATE calificaciones SET nota = ".htmlspecialchars($_GET["nota"])." WHERE dispositivo = '".htmlspecialchars($_GET["dispositivo"])."' AND id_local = ".htmlspecialchars($_GET["id_local"]).";");
-}
-else if (isset($_GET["gcm"]) && isset($_GET["reg_id"])){
+
+else if (isset($_GET["gcm"]) && isset($_GET["reg_id"]))
 	$result = mysql_query("INSERT INTO gcm_regs (reg_id) VALUES ('".htmlspecialchars($_GET["reg_id"])."')");
-}
+
 else if (isset($_POST["version"]) && isset($_POST["comentario"]))
 	$result = mysql_query("INSERT INTO version(comentario, fecha) VALUES ('".htmlspecialchars($_POST["comentario"])."', '".date("Ymd")."')");
+
+else if (isset($_POST["ofertas"]) && isset($_POST["producto"]) && isset($_POST["precio"]) && isset($_POST["id_local"]))
+	$result = mysql_query("INSERT INTO ofertas(id_local, oferta, precio) VALUES (".htmlspecialchars($_POST["id_local"]).", ".htmlspecialchars($_POST["precio"]).", '".htmlspecialchars($_POST["producto"])."')");
+
 
 if ($result) {
     // successfully inserted into database

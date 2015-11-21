@@ -17,8 +17,10 @@ mysql_select_db($c_db, $con);
 if (isset($_GET["id"]))
 	$result = mysql_query("SELECT * FROM locales WHERE id ='" . htmlspecialchars($_GET["id"]) . "'");
 else if (isset($_GET["version"]))
+	$result = mysql_query("SELECT * FROM versiones ORDER BY id DESC LIMIT 1")
+else if (isset($_GET["locales"]))
 	$result = mysql_query("SELECT locales.*,clientes.premium as premium, (SELECT id FROM versiones ORDER BY id DESC LIMIT 1) as version_id, (SELECT comentario FROM versiones ORDER BY id DESC LIMIT 1) as version_comentario FROM locales INNER JOIN clientes ON locales.cliente = clientes.id WHERE locales.activo = 1");
-else if (isset($_GET["calificacion"]))
+else if (isset($_GET["calificaciones"]))
 	$result = mysql_query("SELECT * FROM calificaciones");
 else if (isset($_GET["rubros"]))
 	$result = mysql_query("SELECT * FROM rubros_locales");
